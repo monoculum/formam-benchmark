@@ -114,15 +114,3 @@ func BenchmarkJSON(b *testing.B) {
 		}
 	}
 }
-
-/*
-func BenchmarkSchema(b *testing.B) {
-	for i := 0; i < b.N; i++ {
-		ne := new(Test)
-		dec := schema.NewDecoder()
-		if err := dec.Decode(ne, values); err != nil {
-			b.Error(err)
-		}
-	}
-}
-*/
