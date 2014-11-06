@@ -6,6 +6,7 @@ import (
 	"net/url"
 	"github.com/monoculum/formam"
 	"github.com/ajg/form"
+	"encoding/json"
 )
 
 type BenchFormamSchema struct {
@@ -48,6 +49,17 @@ var (
 		"Slice.3":              []string{"4"},
 		"Bool":                 []string{"true"},
 	}
+	valuesJSON = `
+	{
+		"Nest":
+			{
+				"Children": [{"Id": "monoculum_id", "Name":"Monoculum"}]
+			},
+		"string": "golang is very fun",
+		"Slice": [1, 2, 3, 4],
+		"Bool": true
+	}
+	`
 )
 
 func BenchmarkAJGForm(b *testing.B) {
@@ -73,6 +85,15 @@ func Benchmark2Formam(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		test := new(BenchFormamSchema)
 		if err := formam.Decode(valFormam, test); err != nil {
+			b.Error(err)
+		}
+	}
+}
+
+func BenchmarkJSON(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		test := new(BenchFormamSchema)
+		if err := json.Unmarshal([]byte(valuesJSON), test); err != nil {
 			b.Error(err)
 		}
 	}
