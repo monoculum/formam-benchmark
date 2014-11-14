@@ -11,15 +11,15 @@ NOTE: schema not supported map...
 
 ```
 BenchmarkAJGForm	   50000	     44224 ns/op
-BenchmarkFormam	     100000	     20741 ns/op
-BenchmarkJSON	       100000	     17001 ns/op
+BenchmarkFormam	      100000	     20741 ns/op
+BenchmarkJSON	      100000	     17001 ns/op
 ```
 
 ### test 2
 
 ```
 BenchmarkAJGForm	  100000	     21551 ns/op
-BenchmarkSchema	    100000	     22500 ns/op
+BenchmarkSchema	      100000	     22500 ns/op
 Benchmark2Formam	  200000	      9226 ns/op
 BenchmarkJSON	      200000	      9879 ns/op
 ```
