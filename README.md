@@ -7,7 +7,7 @@ In a Mac i7 2,8Ghz 4 cores, 8 GB 1067Mhz DDR3
 
 ### test 1
 
-NOTE: schema not supported map...
+NOTE: schema not support map...
 
 ```
 BenchmarkAJGForm	   50000	     44224 ns/op
