@@ -1,7 +1,7 @@
 formam-benchmark
 ================
 
-Benchmark about formam package (compared with built-in JSON, [ajg/form](https://github.com/ajg/form) and [gorilla/schema](https://github.com/gorilla/schema))
+Benchmark about formam package (compared with [ajg/form](https://github.com/ajg/form) and [gorilla/schema](https://github.com/gorilla/schema) and [built-in/json](http://golang.org/pkg/encoding/json/))
 
 In a Mac i7 2,8Ghz 4 cores, 8 GB 1067Mhz DDR3
 
@@ -27,4 +27,4 @@ BenchmarkJSON	      200000	      9879 ns/op
 Conclusion
 ----------
 
-Formam is twice faster than [ajg/form](https://github.com/ajg/form) and [gorilla/schema](https://github.com/gorilla/schema). And equal to or slightly slower than built-in/json.
+Formam is twice faster than [ajg/form](https://github.com/ajg/form) and [gorilla/schema](https://github.com/gorilla/schema). And equal to or slightly slower than [built-in/json](http://golang.org/pkg/encoding/json/).
