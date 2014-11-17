@@ -27,4 +27,5 @@ BenchmarkJSON	      200000	      9874 ns/op	     870 B/op	      13 allocs/op
 Conclusion
 ----------
 
-Formam is twice faster than [ajg/form](https://github.com/ajg/form) and [gorilla/schema](https://github.com/gorilla/schema). And equal to or slightly slower than [built-in/json](http://golang.org/pkg/encoding/json/).
+Formam is twice faster than [ajg/form](https://github.com/ajg/form) and [gorilla/schema](https://github.com/gorilla/schema), and equal to or slightly slower than [built-in/json](http://golang.org/pkg/encoding/json/).
+Furthermore, Formam allocates in memory twice less than [ajg/form](https://github.com/ajg/form) and [gorilla/schema](https://github.com/gorilla/schema), and slightly more than [built-in/json](http://golang.org/pkg/encoding/json/).
