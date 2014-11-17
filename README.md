@@ -7,7 +7,7 @@ In a Mac i7 2,8Ghz 4 cores, 8 GB 1067Mhz DDR3
 
 ### test 1
 
-NOTE: schema not support map...
+**NOTE**: `gorilla/schema` not support map...
 
 ```
 BenchmarkAJGForm	    50000	     44667 ns/op	    6170 B/op	     100 allocs/op
