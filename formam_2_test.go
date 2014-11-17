@@ -83,7 +83,7 @@ func BenchmarkSchema(b *testing.B) {
 	}
 }
 
-func Benchmark2Formam(b *testing.B) {
+func BenchmarkFormam(b *testing.B) {
 	b.ReportAllocs()
 	for i := 0; i < b.N; i++ {
 		test := new(BenchFormamSchema)
