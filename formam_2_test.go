@@ -1,12 +1,12 @@
 package formam_benchmark
 
 import (
-	"github.com/gorilla/schema"
-	"testing"
-	"net/url"
-	"github.com/monoculum/formam"
-	"github.com/ajg/form"
 	"encoding/json"
+	"github.com/ajg/form"
+	"github.com/gorilla/schema"
+	"github.com/monoculum/formam"
+	"net/url"
+	"testing"
 )
 
 type BenchFormamSchema struct {
@@ -63,6 +63,7 @@ var (
 )
 
 func BenchmarkAJGForm(b *testing.B) {
+	b.ReportAllocs()
 	for i := 0; i < b.N; i++ {
 		ne := new(BenchFormamSchema)
 		if err := form.DecodeValues(ne, valAJG); err != nil {
@@ -72,6 +73,7 @@ func BenchmarkAJGForm(b *testing.B) {
 }
 
 func BenchmarkSchema(b *testing.B) {
+	b.ReportAllocs()
 	for i := 0; i < b.N; i++ {
 		ne := new(BenchFormamSchema)
 		dec := schema.NewDecoder()
@@ -82,6 +84,7 @@ func BenchmarkSchema(b *testing.B) {
 }
 
 func Benchmark2Formam(b *testing.B) {
+	b.ReportAllocs()
 	for i := 0; i < b.N; i++ {
 		test := new(BenchFormamSchema)
 		if err := formam.Decode(valFormam, test); err != nil {
@@ -91,6 +94,7 @@ func Benchmark2Formam(b *testing.B) {
 }
 
 func BenchmarkJSON(b *testing.B) {
+	b.ReportAllocs()
 	for i := 0; i < b.N; i++ {
 		test := new(BenchFormamSchema)
 		if err := json.Unmarshal([]byte(valuesJSON), test); err != nil {

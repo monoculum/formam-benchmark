@@ -89,6 +89,7 @@ var (
 )
 
 func BenchmarkAJGForm(b *testing.B) {
+	b.ReportAllocs()
 	for i := 0; i < b.N; i++ {
 		ne := new(BenchAJG)
 		if err := form.DecodeValues(ne, valuesAJGForm); err != nil {
@@ -98,6 +99,7 @@ func BenchmarkAJGForm(b *testing.B) {
 }
 
 func BenchmarkFormam(b *testing.B) {
+	b.ReportAllocs()
 	for i := 0; i < b.N; i++ {
 		test := new(Bench)
 		if err := formam.Decode(valuesFormam, test); err != nil {
@@ -107,6 +109,7 @@ func BenchmarkFormam(b *testing.B) {
 }
 
 func BenchmarkJSON(b *testing.B) {
+	b.ReportAllocs()
 	for i := 0; i < b.N; i++ {
 		test := new(Bench)
 		if err := json.Unmarshal([]byte(valuesJSON), test); err != nil {
