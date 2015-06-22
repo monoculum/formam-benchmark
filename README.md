@@ -10,18 +10,18 @@ In a Mac i7 2,8Ghz 4 cores, 8 GB 1067Mhz DDR3
 **NOTE**: `gorilla/schema` not support map...
 
 ```
-BenchmarkAJGForm	    50000	     44667 ns/op	    6170 B/op	     100 allocs/op
-BenchmarkFormam	       100000	     20835 ns/op	    2070 B/op	      59 allocs/op
-BenchmarkJSON	       100000	     18654 ns/op	    1793 B/op	      27 allocs/op
+BenchmarkAJGFormTest1	   20000	     64840 ns/op	    5886 B/op	     116 allocs/op
+BenchmarkFormamTest1	   50000	     28037 ns/op	    2027 B/op	      86 allocs/op
+BenchmarkJSONTest1	      100000	     23509 ns/op	    1761 B/op	      34 allocs/op
 ```
 
 ### test 2
 
 ```
-BenchmarkAJGForm	  100000	     24384 ns/op	    3169 B/op	      53 allocs/op
-BenchmarkSchema	      100000	     24574 ns/op	    4020 B/op	      66 allocs/op
-BenchmarkFormam	      200000	      9647 ns/op	     873 B/op	      30 allocs/op
-BenchmarkJSON	      200000	      9874 ns/op	     870 B/op	      13 allocs/op
+BenchmarkAJGFormTest2	   50000	     35664 ns/op	    3156 B/op	      66 allocs/op
+BenchmarkSchemaTest2	   50000	     30770 ns/op	    3504 B/op	      80 allocs/op
+BenchmarkFormamTest2	  100000	     12305 ns/op	     844 B/op	      43 allocs/op
+BenchmarkJSONTest2	      100000	     13712 ns/op	     848 B/op	      17 allocs/op
 ```
 
 Conclusion

@@ -22,7 +22,7 @@ type BenchFormamSchema struct {
 }
 
 var (
-	valFormam = url.Values{
+	valFormamT2 = url.Values{
 		"Nest.Children[0].Id":   []string{"monoculum_id"},
 		"Nest.Children[0].Name": []string{"Monoculum"},
 		"String":                []string{"golang is very fun"},
@@ -32,14 +32,14 @@ var (
 		"Slice[3]":              []string{"4"},
 		"Bool":                  []string{"true"},
 	}
-	valSchema = url.Values{
+	valSchemaT2 = url.Values{
 		"Nest.Children.0.Id":   []string{"monoculum_id"},
 		"Nest.Children.0.Name": []string{"Monoculum"},
 		"String":               []string{"golang is very fun"},
 		"Slice":                []string{"1", "2", "3", "4"},
 		"Bool":                 []string{"true"},
 	}
-	valAJG = url.Values{
+	valAJGT2 = url.Values{
 		"Nest.Children.0.Id":   []string{"monoculum_id"},
 		"Nest.Children.0.Name": []string{"Monoculum"},
 		"String":               []string{"golang is very fun"},
@@ -49,7 +49,7 @@ var (
 		"Slice.3":              []string{"4"},
 		"Bool":                 []string{"true"},
 	}
-	valuesJSON = `
+	valuesJSONT2 = `
 	{
 		"Nest":
 			{
@@ -62,42 +62,42 @@ var (
 	`
 )
 
-func BenchmarkAJGForm(b *testing.B) {
+func BenchmarkAJGFormTest2(b *testing.B) {
 	b.ReportAllocs()
 	for i := 0; i < b.N; i++ {
 		ne := new(BenchFormamSchema)
-		if err := form.DecodeValues(ne, valAJG); err != nil {
+		if err := form.DecodeValues(ne, valAJGT2); err != nil {
 			b.Error(err)
 		}
 	}
 }
 
-func BenchmarkSchema(b *testing.B) {
+func BenchmarkSchemaTest2(b *testing.B) {
 	b.ReportAllocs()
 	for i := 0; i < b.N; i++ {
 		ne := new(BenchFormamSchema)
 		dec := schema.NewDecoder()
-		if err := dec.Decode(ne, valSchema); err != nil {
+		if err := dec.Decode(ne, valSchemaT2); err != nil {
 			b.Error(err)
 		}
 	}
 }
 
-func BenchmarkFormam(b *testing.B) {
+func BenchmarkFormamTest2(b *testing.B) {
 	b.ReportAllocs()
 	for i := 0; i < b.N; i++ {
 		test := new(BenchFormamSchema)
-		if err := formam.Decode(valFormam, test); err != nil {
+		if err := formam.Decode(valFormamT2, test); err != nil {
 			b.Error(err)
 		}
 	}
 }
 
-func BenchmarkJSON(b *testing.B) {
+func BenchmarkJSONTest2(b *testing.B) {
 	b.ReportAllocs()
 	for i := 0; i < b.N; i++ {
 		test := new(BenchFormamSchema)
-		if err := json.Unmarshal([]byte(valuesJSON), test); err != nil {
+		if err := json.Unmarshal([]byte(valuesJSONT2), test); err != nil {
 			b.Error(err)
 		}
 	}

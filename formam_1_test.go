@@ -43,7 +43,7 @@ type BenchAJG struct {
 }
 
 var (
-	valuesFormam = url.Values{
+	valuesFormamT1 = url.Values{
 		"Nest.Children[0].Id":   []string{"monoculum_id"},
 		"Nest.Children[0].Name": []string{"Monoculum"},
 		"Map.es_Es[0]":          []string{"javier"},
@@ -58,7 +58,7 @@ var (
 		"int":                   []string{"1"},
 		"Bool":                  []string{"true"},
 	}
-	valuesAJGForm = url.Values{
+	valuesAJGFormT1 = url.Values{
 		"Nest.Children.0.Id":   []string{"monoculum_id"},
 		"Nest.Children.0.Name": []string{"Monoculum"},
 		"Map.es_Es.0":          []string{"javier"},
@@ -73,7 +73,7 @@ var (
 		"int":                  []string{"1"},
 		"Bool":                 []string{"true"},
 	}
-	valuesJSON = `
+	valuesJSONT1 = `
 	{
 		"Nest":
 			{
@@ -88,31 +88,31 @@ var (
 	`
 )
 
-func BenchmarkAJGForm(b *testing.B) {
+func BenchmarkAJGFormTest1(b *testing.B) {
 	b.ReportAllocs()
 	for i := 0; i < b.N; i++ {
 		ne := new(BenchAJG)
-		if err := form.DecodeValues(ne, valuesAJGForm); err != nil {
+		if err := form.DecodeValues(ne, valuesAJGFormT1); err != nil {
 			b.Error(err)
 		}
 	}
 }
 
-func BenchmarkFormam(b *testing.B) {
+func BenchmarkFormamTest1(b *testing.B) {
 	b.ReportAllocs()
 	for i := 0; i < b.N; i++ {
 		test := new(Bench)
-		if err := formam.Decode(valuesFormam, test); err != nil {
+		if err := formam.Decode(valuesFormamT1, test); err != nil {
 			b.Error(err)
 		}
 	}
 }
 
-func BenchmarkJSON(b *testing.B) {
+func BenchmarkJSONTest1(b *testing.B) {
 	b.ReportAllocs()
 	for i := 0; i < b.N; i++ {
 		test := new(Bench)
-		if err := json.Unmarshal([]byte(valuesJSON), test); err != nil {
+		if err := json.Unmarshal([]byte(valuesJSONT1), test); err != nil {
 			b.Error(err)
 		}
 	}
