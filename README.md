@@ -3,25 +3,25 @@ formam-benchmark
 
 Benchmark about formam package (compared with [ajg/form](https://github.com/ajg/form) and [gorilla/schema](https://github.com/gorilla/schema) and [built-in/json](http://golang.org/pkg/encoding/json/))
 
-In a Mac i7 2,8Ghz 4 cores, 8 GB 1067Mhz DDR3
+In a Mac i7 2,8Ghz 4 cores, 8 GB 1067Mhz DDR3 and Go 1.4.2
 
 ### test 1
 
 **NOTE**: `gorilla/schema` not support map...
 
 ```
-BenchmarkAJGFormTest1	   20000	     64840 ns/op	    5886 B/op	     116 allocs/op
-BenchmarkFormamTest1	   50000	     28037 ns/op	    2027 B/op	      86 allocs/op
-BenchmarkJSONTest1	      100000	     23509 ns/op	    1761 B/op	      34 allocs/op
+BenchmarkAJGFormTest1	   20000	    105970 ns/op	    5885 B/op	     116 allocs/op
+BenchmarkFormamTest1	   30000	     45327 ns/op	    2027 B/op	      86 allocs/op
+BenchmarkJSONTest1	       30000	     39330 ns/op	    1760 B/op	      34 allocs/op
 ```
 
 ### test 2
 
 ```
-BenchmarkAJGFormTest2	   50000	     35664 ns/op	    3156 B/op	      66 allocs/op
-BenchmarkSchemaTest2	   50000	     30770 ns/op	    3504 B/op	      80 allocs/op
-BenchmarkFormamTest2	  100000	     12305 ns/op	     844 B/op	      43 allocs/op
-BenchmarkJSONTest2	      100000	     13712 ns/op	     848 B/op	      17 allocs/op
+BenchmarkAJGFormTest2	   20000	     67690 ns/op	    3156 B/op	      66 allocs/op
+BenchmarkSchemaTest2	   30000	     44883 ns/op	    3504 B/op	      80 allocs/op
+BenchmarkFormamTest2	  100000	     18588 ns/op	     845 B/op	      43 allocs/op
+BenchmarkJSONTest2	      100000	     21852 ns/op	     848 B/op	      17 allocs/op
 ```
 
 Conclusion
