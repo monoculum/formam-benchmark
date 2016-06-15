@@ -2,11 +2,13 @@ package formam_benchmark
 
 import (
 	"encoding/json"
+	"net/url"
+	"testing"
+
 	"github.com/ajg/form"
 	"github.com/gorilla/schema"
 	"github.com/monoculum/formam"
-	"net/url"
-	"testing"
+	formm "github.com/go-playground/form"
 )
 
 type BenchFormamSchema struct {
@@ -23,6 +25,16 @@ type BenchFormamSchema struct {
 
 var (
 	valFormamT2 = url.Values{
+		"Nest.Children[0].Id":   []string{"monoculum_id"},
+		"Nest.Children[0].Name": []string{"Monoculum"},
+		"String":                []string{"golang is very fun"},
+		"Slice[0]":              []string{"1"},
+		"Slice[1]":              []string{"2"},
+		"Slice[2]":              []string{"3"},
+		"Slice[3]":              []string{"4"},
+		"Bool":                  []string{"true"},
+	}
+	valFormT2 = url.Values{
 		"Nest.Children[0].Id":   []string{"monoculum_id"},
 		"Nest.Children[0].Name": []string{"Monoculum"},
 		"String":                []string{"golang is very fun"},
@@ -88,6 +100,17 @@ func BenchmarkFormamTest2(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		test := new(BenchFormamSchema)
 		if err := formam.Decode(valFormamT2, test); err != nil {
+			b.Error(err)
+		}
+	}
+}
+
+func BenchmarkFormTest2(b *testing.B) {
+	b.ReportAllocs()
+	for i := 0; i < b.N; i++ {
+		test := new(BenchFormamSchema)
+		decoder := formm.NewDecoder();
+		if err := decoder.Decode(test, valFormT2); err != nil {
 			b.Error(err)
 		}
 	}
