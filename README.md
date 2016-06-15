@@ -1,7 +1,7 @@
 formam-benchmark
 ================
 
-Benchmark about formam package (compared with [ajg/form](https://github.com/ajg/form) and [gorilla/schema](https://github.com/gorilla/schema) and [built-in/json](http://golang.org/pkg/encoding/json/))
+Benchmark about formam package (compared with [ajg/form](https://github.com/ajg/form), [gorilla/schema](https://github.com/gorilla/schema), [go-playground/form](github.com/go-playground/form) and [built-in/json](http://golang.org/pkg/encoding/json/))
 
 In a macbook air i5 1.7GHz, 4 GB 1333MHz DDR3 and Go 1.7beta1
 
