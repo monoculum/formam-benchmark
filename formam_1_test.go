@@ -6,8 +6,8 @@ import (
 	"testing"
 
 	"github.com/ajg/form"
-	"github.com/monoculum/formam"
 	formm "github.com/go-playground/form"
+	"github.com/monoculum/formam"
 )
 
 type Anonymous struct {
@@ -63,12 +63,12 @@ var (
 	valuesFormT1 = url.Values{
 		"Nest.Children[0].Id":   []string{"monoculum_id"},
 		"Nest.Children[0].Name": []string{"Monoculum"},
-		"Map[es_Es][0]":          []string{"javier"},
-		"Map[es_Es][1]":          []string{"javier"},
-		"Map[es_Es][2]":          []string{"javier"},
-		"Map[es_Es][3]":          []string{"javier"},
-		"Map[es_Es][4]":          []string{"javier"},
-		"Map[es_Es][5]":          []string{"javier"},
+		"Map[es_Es][0]":         []string{"javier"},
+		"Map[es_Es][1]":         []string{"javier"},
+		"Map[es_Es][2]":         []string{"javier"},
+		"Map[es_Es][3]":         []string{"javier"},
+		"Map[es_Es][4]":         []string{"javier"},
+		"Map[es_Es][5]":         []string{"javier"},
 		"string":                []string{"golang is very fun"},
 		"Slice[0]":              []string{"1"},
 		"Slice[1]":              []string{"2"},
@@ -126,10 +126,12 @@ func BenchmarkFormamTest1(b *testing.B) {
 }
 
 func BenchmarkFormTest1(b *testing.B) {
+
+	decoder := formm.NewDecoder()
+
 	b.ReportAllocs()
 	for i := 0; i < b.N; i++ {
 		test := new(Bench)
-		decoder := formm.NewDecoder()
 		if err := decoder.Decode(test, valuesFormT1); err != nil {
 			b.Error(err)
 		}

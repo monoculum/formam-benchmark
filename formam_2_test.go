@@ -6,9 +6,9 @@ import (
 	"testing"
 
 	"github.com/ajg/form"
+	formm "github.com/go-playground/form"
 	"github.com/gorilla/schema"
 	"github.com/monoculum/formam"
-	formm "github.com/go-playground/form"
 )
 
 type BenchFormamSchema struct {
@@ -85,10 +85,12 @@ func BenchmarkAJGFormTest2(b *testing.B) {
 }
 
 func BenchmarkSchemaTest2(b *testing.B) {
+
+	dec := schema.NewDecoder()
+
 	b.ReportAllocs()
 	for i := 0; i < b.N; i++ {
 		ne := new(BenchFormamSchema)
-		dec := schema.NewDecoder()
 		if err := dec.Decode(ne, valSchemaT2); err != nil {
 			b.Error(err)
 		}
@@ -106,10 +108,12 @@ func BenchmarkFormamTest2(b *testing.B) {
 }
 
 func BenchmarkFormTest2(b *testing.B) {
+
+	decoder := formm.NewDecoder()
+
 	b.ReportAllocs()
 	for i := 0; i < b.N; i++ {
 		test := new(BenchFormamSchema)
-		decoder := formm.NewDecoder();
 		if err := decoder.Decode(test, valFormT2); err != nil {
 			b.Error(err)
 		}
