@@ -7,124 +7,140 @@ import (
 
 	"github.com/ajg/form"
 	formm "github.com/go-playground/form"
-	"github.com/gorilla/schema"
 	"github.com/monoculum/formam"
 )
 
-type BenchFormamSchema struct {
+type Anonymous struct {
+	Int int `formam:"int" json:"int"`
+}
+
+type Medium struct {
 	Nest struct {
 		Children []struct {
-			Id   string
+			ID   string
 			Name string
 		}
 	}
-	String string
+	String string `formam:"string" json:"string"`
 	Slice  []int
+	Map    map[string][]string
 	Bool   bool
+	Ptr    *string
+	Anonymous
+}
+
+type Medium2 struct {
+	Nest struct {
+		Children []struct {
+			ID   string
+			Name string
+		}
+	}
+	String string `form:"string"`
+	Slice  []int
+	Map    map[string][]string
+	Int    int `form:"int"`
+	Bool   bool
+	Anonymous
 }
 
 var (
-	valFormamT2 = url.Values{
-		"Nest.Children[0].Id":   []string{"monoculum_id"},
+	valuesFormamT1 = url.Values{
+		"Nest.Children[0].ID":   []string{"monoculum_id"},
 		"Nest.Children[0].Name": []string{"Monoculum"},
-		"String":                []string{"golang is very fun"},
+		"Map[es_Es][0]":          []string{"javier"},
+		"Map[es_Es][1]":          []string{"javier"},
+		"Map[es_Es][2]":          []string{"javier"},
+		"Map[es_Es][3]":          []string{"javier"},
+		"Map[es_Es][4]":          []string{"javier"},
+		"Map[es_Es][5]":          []string{"javier"},
+		"string":                []string{"golang is very fun"},
 		"Slice[0]":              []string{"1"},
 		"Slice[1]":              []string{"2"},
-		"Slice[2]":              []string{"3"},
-		"Slice[3]":              []string{"4"},
+		"int":                   []string{"1"},
 		"Bool":                  []string{"true"},
 	}
-	valFormT2 = url.Values{
-		"Nest.Children[0].Id":   []string{"monoculum_id"},
+	valuesFormT1 = url.Values{
+		"Nest.Children[0].ID":   []string{"monoculum_id"},
 		"Nest.Children[0].Name": []string{"Monoculum"},
-		"String":                []string{"golang is very fun"},
+		"Map[es_Es][0]":         []string{"javier"},
+		"Map[es_Es][1]":         []string{"javier"},
+		"Map[es_Es][2]":         []string{"javier"},
+		"Map[es_Es][3]":         []string{"javier"},
+		"Map[es_Es][4]":         []string{"javier"},
+		"Map[es_Es][5]":         []string{"javier"},
+		"string":                []string{"golang is very fun"},
 		"Slice[0]":              []string{"1"},
 		"Slice[1]":              []string{"2"},
-		"Slice[2]":              []string{"3"},
-		"Slice[3]":              []string{"4"},
+		"int":                   []string{"1"},
 		"Bool":                  []string{"true"},
 	}
-	valSchemaT2 = url.Values{
-		"Nest.Children.0.Id":   []string{"monoculum_id"},
+	valuesAJGFormT1 = url.Values{
+		"Nest.Children.0.ID":   []string{"monoculum_id"},
 		"Nest.Children.0.Name": []string{"Monoculum"},
-		"String":               []string{"golang is very fun"},
-		"Slice":                []string{"1", "2", "3", "4"},
-		"Bool":                 []string{"true"},
-	}
-	valAJGT2 = url.Values{
-		"Nest.Children.0.Id":   []string{"monoculum_id"},
-		"Nest.Children.0.Name": []string{"Monoculum"},
-		"String":               []string{"golang is very fun"},
+		"Map.es_Es.0":          []string{"javier"},
+		"Map.es_Es.1":          []string{"javier"},
+		"Map.es_Es.2":          []string{"javier"},
+		"Map.es_Es.3":          []string{"javier"},
+		"Map.es_Es.4":          []string{"javier"},
+		"Map.es_Es.5":          []string{"javier"},
+		"string":               []string{"golang is very fun"},
 		"Slice.0":              []string{"1"},
 		"Slice.1":              []string{"2"},
-		"Slice.2":              []string{"3"},
-		"Slice.3":              []string{"4"},
+		"int":                  []string{"1"},
 		"Bool":                 []string{"true"},
 	}
-	valuesJSONT2 = `
+	valuesJSONT1 = `
 	{
 		"Nest":
 			{
-				"Children": [{"Id": "monoculum_id", "Name":"Monoculum"}]
+				"Children": [{"ID": "monoculum_id", "Name":"Monoculum"}]
 			},
 		"string": "golang is very fun",
-		"Slice": [1, 2, 3, 4],
+		"Map": {"es_Es": ["javier", "javier", "javier", "javier", "javier", "javier"]},
+		"Slice": [1, 2],
+		"int": 20,
 		"Bool": true
 	}
 	`
 )
 
-func BenchmarkAJGFormTest2(b *testing.B) {
+func BenchmarkAJGFormTestMEDIUM(b *testing.B) {
 	b.ReportAllocs()
 	for i := 0; i < b.N; i++ {
-		ne := new(BenchFormamSchema)
-		if err := form.DecodeValues(ne, valAJGT2); err != nil {
+		ne := new(Medium2)
+		if err := form.DecodeValues(ne, valuesAJGFormT1); err != nil {
 			b.Error(err)
 		}
 	}
 }
 
-func BenchmarkSchemaTest2(b *testing.B) {
-
-	dec := schema.NewDecoder()
-
+func BenchmarkFormamTestMEDIUM(b *testing.B) {
 	b.ReportAllocs()
 	for i := 0; i < b.N; i++ {
-		ne := new(BenchFormamSchema)
-		if err := dec.Decode(ne, valSchemaT2); err != nil {
+		test := new(Medium)
+		if err := formam.Decode(valuesFormamT1, test); err != nil {
 			b.Error(err)
 		}
 	}
 }
 
-func BenchmarkFormamTest2(b *testing.B) {
-	b.ReportAllocs()
-	for i := 0; i < b.N; i++ {
-		test := new(BenchFormamSchema)
-		if err := formam.Decode(valFormamT2, test); err != nil {
-			b.Error(err)
-		}
-	}
-}
-
-func BenchmarkFormTest2(b *testing.B) {
-
+func BenchmarkFormTestMEDIUM(b *testing.B) {
 	decoder := formm.NewDecoder()
-
 	b.ReportAllocs()
 	for i := 0; i < b.N; i++ {
-		test := new(BenchFormamSchema)
-		if err := decoder.Decode(test, valFormT2); err != nil {
+		test := new(Medium)
+		if err := decoder.Decode(test, valuesFormT1); err != nil {
 			b.Error(err)
 		}
 	}
 }
 
-func BenchmarkJSONTest2(b *testing.B) {
+func BenchmarkJSONTestMEDIUM(b *testing.B) {
 	b.ReportAllocs()
 	for i := 0; i < b.N; i++ {
-		test := new(BenchFormamSchema)
-		if err := json.Unmarshal([]byte(valuesJSONT2), test); err != nil {
+		test := new(Medium)
+		if err := json.Unmarshal([]byte(valuesJSONT1), test); err != nil {
 			b.Error(err)
 		}
 	}

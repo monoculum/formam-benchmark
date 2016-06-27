@@ -5,29 +5,45 @@ Benchmark about formam package (compared with [ajg/form](https://github.com/ajg/
 
 In a iMac 2.8GHz i7, 8GB 1067MHz DDR3 and Go 1.7beta1
 
-### test 1 (COMPLEX)
+
+SCENARIOS
+---------
+
+The follow scenarios are real examples that can be seen in many projects.
+
+### SIMPLE
+
+```
+BenchmarkAJGFormTestSIMPLE-8   	   50000	     25478 ns/op	    3152 B/op	      66 allocs/op
+BenchmarkSchemaTestSIMPLE-8    	  100000	     10263 ns/op	    1376 B/op	      48 allocs/op
+BenchmarkFormamTestSIMPLE-8    	  200000	      7940 ns/op	     660 B/op	      48 allocs/op
+BenchmarkFormTestSIMPLE-8      	  200000	      7390 ns/op	    1832 B/op	      35 allocs/op
+BenchmarkJSONTestSIMPLE-8      	  200000	      9728 ns/op	     848 B/op	      17 allocs/op
+```
+
+formam is three times more fast than [ajg/form](https://github.com/ajg/form), two times more fast than [gorilla/schema](https://github.com/gorilla/schema), very slightly more slowly than [go-playground/form](https://github.com/go-playground/form), and equal than [built-in/json](http://golang.org/pkg/encoding/json/).
+[go-playground/form](https://github.com/go-playground/form) is the that less allocations does.
+
+### MEDIUM
 
 **NOTE**: `gorilla/schema` not support map...
 
 ```
-BenchmarkAJGFormTest1-8   	   30000	     46088 ns/op	    5843 B/op	     113 allocs/op
-BenchmarkFormamTest1-8    	   50000	     25366 ns/op	    2316 B/op	     104 allocs/op
-BenchmarkFormTest1-8      	   50000	     31089 ns/op	    6776 B/op	     165 allocs/op
-BenchmarkJSONTest1-8      	  100000	     16695 ns/op	    1696 B/op	      32 allocs/op
+BenchmarkAJGFormTestMEDIUM-8   	   30000	     43619 ns/op	    5858 B/op	     114 allocs/op
+BenchmarkFormamTestMEDIUM-8    	  100000	     20923 ns/op	    2026 B/op	     150 allocs/op
+BenchmarkFormTestMEDIUM-8      	   50000	     27959 ns/op	    5848 B/op	     149 allocs/op
+BenchmarkJSONTestMEDIUM-8      	  100000	     16878 ns/op	    1696 B/op	      32 allocs/op
 ```
 
-### test 2 (SIMPLE)
+formam is the fastest.
+[ajg/form](https://github.com/ajg/form) is that less allocations does.
+
+### COMPLEX
 
 ```
-BenchmarkAJGFormTest2-8   	   50000	     25056 ns/op	    3152 B/op	      66 allocs/op
-BenchmarkSchemaTest2-8    	  100000	     17638 ns/op	    3543 B/op	      80 allocs/op
-BenchmarkFormamTest2-8    	  200000	     11217 ns/op	     932 B/op	      54 allocs/op
-BenchmarkFormTest2-8      	  200000	      8609 ns/op	    2504 B/op	      45 allocs/op
-BenchmarkJSONTest2-8      	  200000	      9650 ns/op	     848 B/op	      17 allocs/op
+BenchmarkFormamTestCOMPLEX-8   	    5000	    307747 ns/op	   41058 B/op	    2062 allocs/op
+BenchmarkFormTestCOMPLEX-8     	    2000	    572936 ns/op	  107142 B/op	    2108 allocs/op
 ```
 
-Conclusion
-----------
-
-Formam is twice faster than [ajg/form](https://github.com/ajg/form) and [gorilla/schema](https://github.com/gorilla/schema), and equal to or slower than [built-in/json](http://golang.org/pkg/encoding/json/).
-Furthermore, Formam allocates in memory twice less than [ajg/form](https://github.com/ajg/form) and [gorilla/schema](https://github.com/gorilla/schema), and slightly more than [built-in/json](http://golang.org/pkg/encoding/json/).
+formam is the fastest (two times fastest than [go-playground/form](https://github.com/go-playground/form)).
+formam is that less allocations does.
