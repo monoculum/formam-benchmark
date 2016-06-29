@@ -21,7 +21,7 @@ type Medium struct {
 			Name string
 		}
 	}
-	String string `formam:"string" json:"string"`
+	String string `form:"string" formam:"string" json:"string"`
 	Slice  []int
 	Map    map[string][]string
 	Bool   bool
@@ -29,38 +29,8 @@ type Medium struct {
 	Anonymous
 }
 
-type Medium2 struct {
-	Nest struct {
-		Children []struct {
-			ID   string
-			Name string
-		}
-	}
-	String string `form:"string"`
-	Slice  []int
-	Map    map[string][]string
-	Int    int `form:"int"`
-	Bool   bool
-	Anonymous
-}
-
 var (
 	valuesFormamT1 = url.Values{
-		"Nest.Children[0].ID":   []string{"monoculum_id"},
-		"Nest.Children[0].Name": []string{"Monoculum"},
-		"Map[es_Es][0]":          []string{"javier"},
-		"Map[es_Es][1]":          []string{"javier"},
-		"Map[es_Es][2]":          []string{"javier"},
-		"Map[es_Es][3]":          []string{"javier"},
-		"Map[es_Es][4]":          []string{"javier"},
-		"Map[es_Es][5]":          []string{"javier"},
-		"string":                []string{"golang is very fun"},
-		"Slice[0]":              []string{"1"},
-		"Slice[1]":              []string{"2"},
-		"int":                   []string{"1"},
-		"Bool":                  []string{"true"},
-	}
-	valuesFormT1 = url.Values{
 		"Nest.Children[0].ID":   []string{"monoculum_id"},
 		"Nest.Children[0].Name": []string{"Monoculum"},
 		"Map[es_Es][0]":         []string{"javier"},
@@ -72,7 +42,7 @@ var (
 		"string":                []string{"golang is very fun"},
 		"Slice[0]":              []string{"1"},
 		"Slice[1]":              []string{"2"},
-		"int":                   []string{"1"},
+		"Ptr":                   []string{"ptr string"},
 		"Bool":                  []string{"true"},
 	}
 	valuesAJGFormT1 = url.Values{
@@ -87,7 +57,7 @@ var (
 		"string":               []string{"golang is very fun"},
 		"Slice.0":              []string{"1"},
 		"Slice.1":              []string{"2"},
-		"int":                  []string{"1"},
+		"Ptr":                  []string{"ptr string"},
 		"Bool":                 []string{"true"},
 	}
 	valuesJSONT1 = `
@@ -99,7 +69,7 @@ var (
 		"string": "golang is very fun",
 		"Map": {"es_Es": ["javier", "javier", "javier", "javier", "javier", "javier"]},
 		"Slice": [1, 2],
-		"int": 20,
+		"Ptr": "ptr string",
 		"Bool": true
 	}
 	`
@@ -108,7 +78,7 @@ var (
 func BenchmarkAJGFormTestMEDIUM(b *testing.B) {
 	b.ReportAllocs()
 	for i := 0; i < b.N; i++ {
-		ne := new(Medium2)
+		ne := new(Medium)
 		if err := form.DecodeValues(ne, valuesAJGFormT1); err != nil {
 			b.Error(err)
 		}
@@ -130,7 +100,7 @@ func BenchmarkFormTestMEDIUM(b *testing.B) {
 	b.ReportAllocs()
 	for i := 0; i < b.N; i++ {
 		test := new(Medium)
-		if err := decoder.Decode(test, valuesFormT1); err != nil {
+		if err := decoder.Decode(test, valuesFormamT1); err != nil {
 			b.Error(err)
 		}
 	}

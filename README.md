@@ -21,8 +21,8 @@ BenchmarkFormTestSIMPLE-8      	  200000	      7390 ns/op	    1832 B/op	      35
 BenchmarkJSONTestSIMPLE-8      	  200000	      9728 ns/op	     848 B/op	      17 allocs/op
 ```
 
-formam is three times more fast than [ajg/form](https://github.com/ajg/form), two times more fast than [gorilla/schema](https://github.com/gorilla/schema), very slightly more slowly than [go-playground/form](https://github.com/go-playground/form), and equal than [built-in/json](http://golang.org/pkg/encoding/json/).
-[go-playground/form](https://github.com/go-playground/form) is the that less allocations does.
+formam is three times faster than [ajg/form](https://github.com/ajg/form), two times faster than [gorilla/schema](https://github.com/gorilla/schema), slightly more slowly than [go-playground/form](https://github.com/go-playground/form), and faster than [built-in/json](http://golang.org/pkg/encoding/json/).
+[go-playground/form](https://github.com/go-playground/form) has the least allocations.
 
 ### MEDIUM
 
@@ -36,7 +36,7 @@ BenchmarkJSONTestMEDIUM-8      	  100000	     16878 ns/op	    1696 B/op	      32
 ```
 
 formam is the fastest.
-[ajg/form](https://github.com/ajg/form) is that less allocations does.
+[ajg/form](https://github.com/ajg/form) has the least allocations.
 
 ### COMPLEX
 
@@ -45,5 +45,4 @@ BenchmarkFormamTestCOMPLEX-8   	    5000	    307747 ns/op	   41058 B/op	    2062
 BenchmarkFormTestCOMPLEX-8     	    2000	    572936 ns/op	  107142 B/op	    2108 allocs/op
 ```
 
-formam is the fastest (two times fastest than [go-playground/form](https://github.com/go-playground/form)).
-formam is that less allocations does.
+formam is the fastest and has the least allocations.
