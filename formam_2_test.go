@@ -11,7 +11,7 @@ import (
 )
 
 type Anonymous struct {
-	Int int `formam:"int" json:"int"`
+	Int int `form:"int" formam:"int" json:"int"`
 }
 
 type Medium struct {
@@ -21,27 +21,12 @@ type Medium struct {
 			Name string
 		}
 	}
-	String string `formam:"string" json:"string"`
+	String string `form:"string" formam:"string" json:"string"`
 	Slice  []int
 	Map    map[string][]string
 	Bool   bool
-	Ptr    *string
 	Anonymous
-}
-
-type Medium2 struct {
-	Nest struct {
-		Children []struct {
-			ID   string
-			Name string
-		}
-	}
-	String string `form:"string"`
-	Slice  []int
-	Map    map[string][]string
-	Int    int `form:"int"`
-	Bool   bool
-	Anonymous
+	//Int    int `form:"int" formam:"int" json:"int"`
 }
 
 var (
@@ -92,10 +77,7 @@ var (
 	}
 	valuesJSONT1 = `
 	{
-		"Nest":
-			{
-				"Children": [{"ID": "monoculum_id", "Name":"Monoculum"}]
-			},
+		"Nest": {"Children": [{"ID": "monoculum_id", "Name":"Monoculum"}]},
 		"string": "golang is very fun",
 		"Map": {"es_Es": ["javier", "javier", "javier", "javier", "javier", "javier"]},
 		"Slice": [1, 2],
@@ -108,7 +90,7 @@ var (
 func BenchmarkAJGFormTestMEDIUM(b *testing.B) {
 	b.ReportAllocs()
 	for i := 0; i < b.N; i++ {
-		ne := new(Medium2)
+		ne := new(Medium)
 		if err := form.DecodeValues(ne, valuesAJGFormT1); err != nil {
 			b.Error(err)
 		}

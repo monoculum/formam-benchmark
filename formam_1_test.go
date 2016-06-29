@@ -85,9 +85,7 @@ func BenchmarkAJGFormTestSIMPLE(b *testing.B) {
 }
 
 func BenchmarkSchemaTestSIMPLE(b *testing.B) {
-
 	dec := schema.NewDecoder()
-
 	b.ReportAllocs()
 	for i := 0; i < b.N; i++ {
 		ne := new(Simple)
@@ -108,9 +106,7 @@ func BenchmarkFormamTestSIMPLE(b *testing.B) {
 }
 
 func BenchmarkFormTestSIMPLE(b *testing.B) {
-
 	decoder := formm.NewDecoder()
-
 	b.ReportAllocs()
 	for i := 0; i < b.N; i++ {
 		test := new(Simple)

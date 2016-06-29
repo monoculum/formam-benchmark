@@ -241,6 +241,10 @@ func BenchmarkAJGFormTest3(b *testing.B) {
 
 func BenchmarkFormamTestCOMPLEX(b *testing.B) {
 	b.ReportAllocs()
+	decoder := formam.NewDecoder(nil)
+	decoder.RegisterCustomType(func(vals []string) (interface{}, error) {
+		return time.Parse("2006-01-02", vals[0])
+	}, []interface{}{time.Time{}}, nil)
 	for i := 0; i < b.N; i++ {
 		test := new(Film)
 		if err := formam.Decode(valuesFormamT3, test); err != nil {
