@@ -97,9 +97,10 @@ func BenchmarkSchemaTestSIMPLE(b *testing.B) {
 
 func BenchmarkFormamTestSIMPLE(b *testing.B) {
 	b.ReportAllocs()
+	dec := formam.NewDecoder(nil)
 	for i := 0; i < b.N; i++ {
 		test := new(Simple)
-		if err := formam.Decode(valFormamT2, test); err != nil {
+		if err := dec.Decode(valFormamT2, test); err != nil {
 			b.Error(err)
 		}
 	}

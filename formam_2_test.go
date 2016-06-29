@@ -98,10 +98,11 @@ func BenchmarkAJGFormTestMEDIUM(b *testing.B) {
 }
 
 func BenchmarkFormamTestMEDIUM(b *testing.B) {
+	deco := formam.NewDecoder(nil)
 	b.ReportAllocs()
 	for i := 0; i < b.N; i++ {
 		test := new(Medium)
-		if err := formam.Decode(valuesFormamT1, test); err != nil {
+		if err := deco.Decode(valuesFormamT1, test); err != nil {
 			b.Error(err)
 		}
 	}
